@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: golang:1.9.7
+
+%runscript
+if [ -x /usr/local/go/bin/$SINGULARITY_NAME ]; then
+    exec $SINGULARITY_NAME "$@"
+else
+  /bin/echo -e "This Singularity image cannot provide a single entrypoint. Please use \"singularity exec $SINGULARITY_NAME <cmd>\", where <cmd> is one of the following:\n"
+  exec ls /usr/local/go/bin
+fi
